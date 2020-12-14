@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+
+// 引入vuex(仓库)
+import store from 'store/index'
 // 引入路由环境
 import router from 'router/index'
 
@@ -14,4 +17,5 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
   router,
+  store,
 }).$mount('#app')

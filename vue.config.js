@@ -21,6 +21,7 @@ module.exports = {
         "router": resolve('src/router'),
         "routes": resolve('src/routes'),
         "mock": resolve('src/mock'),
+        "store": resolve('src/store'),
       }
     }
   },
