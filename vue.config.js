@@ -5,7 +5,7 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: false,
   devServer: {
-    open:true,
+    open: true,
     proxy: {
       '/api': {
         target: 'http://182.92.128.115'

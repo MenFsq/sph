@@ -14,6 +14,12 @@ import 'mock/mock'
 
 Vue.config.productionTip = false
 
+// 全剧组件的注册TypeNav
+import TypeNav from 'components/TypeNav/TypeNav'
+Vue.component('TypeNav',TypeNav)
+// $bus注册
+Vue.prototype.$bus = new Vue();
+
 new Vue({
   render: h => h(App),
   router,
