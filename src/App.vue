@@ -2,22 +2,28 @@
   <div id="app">
     <V-Header></V-Header>
     <router-view></router-view>
-    <V-Footer v-show='!$route.meta.hideFooter'></V-Footer>
+    <V-Footer v-show="!$route.meta.hideFooter"></V-Footer>
   </div>
 </template>
 
 <script>
-  import Header from 'components/Header/header.vue'
-  import Footer from 'components/Footer/Footer.vue'
-  export default {
-    name: 'App',
-    components: {
-      'V-Header': Header,
-      'V-Footer': Footer,
-    }
-  }
+import Header from "components/Header/header.vue";
+import Footer from "components/Footer/Footer.vue";
+import { mapActions } from "vuex";
+export default {
+  name: "App",
+  async created() {
+    await this.getCategoryList();
+  },
+  methods: {
+    ...mapActions(["getCategoryList"]),
+  },
+  components: {
+    "V-Header": Header,
+    "V-Footer": Footer,
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

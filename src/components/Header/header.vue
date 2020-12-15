@@ -38,7 +38,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-module="keyWord"
+            v-model="keyWord"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -67,7 +67,10 @@ export default {
         name: "Search",
       };
       if(this.keyWord){
-          localtion.params={}
+          localtion.params={
+            keyWord: this.keyWord
+          }
+            console.log(this.keyWord)
       }
       this.$router.push(localtion);
     },
