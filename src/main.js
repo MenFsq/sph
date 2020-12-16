@@ -19,7 +19,8 @@ import TypeNav from 'components/TypeNav/TypeNav'
 Vue.component('TypeNav',TypeNav)
 // $bus注册
 Vue.prototype.$bus = new Vue();
-
+// 引入全局css样式
+import 'common/css/transition.less'
 new Vue({
   render: h => h(App),
   router,

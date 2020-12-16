@@ -8,7 +8,15 @@ const routes = [
     // 访问登录页和注册页时,Footer不能显示
     { path: "/Login", component: Login, meta: { hideFooter: true } },
     { path: "/Register", component: Register, meta: { hideFooter: true } },
-    { path: "/Search/:keyWord?", component: Search, name: 'Search' },
+    {
+        path: "/Search/:keyWord?", component: Search, name: 'Search', props: (route) => ({
+            keyword: route.params.keyword,
+                categoryName: route.query.categoryName,
+                    category1Id: route.query.category1Id,
+                        category2Id: route.query.category2Id,
+                            category3Id: route.query.category3Id
+        })
+    },
     { path: "/ShopCart", component: ShopCart },
     { path: "/", redirect: '/Home' },
 ];

@@ -14,9 +14,10 @@ export default {
   name: "App",
   async created() {
     await this.getCategoryList();
+    await this.getBanners();
   },
   methods: {
-    ...mapActions(["getCategoryList"]),
+    ...mapActions(["getCategoryList",'getBanners']),
   },
   components: {
     "V-Header": Header,

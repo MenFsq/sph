@@ -66,11 +66,13 @@ export default {
       let localtion = {
         name: "Search",
       };
-      if(this.keyWord){
-          localtion.params={
-            keyWord: this.keyWord
-          }
-            console.log(this.keyWord)
+      if (Object.keys(this.$route.query).length !== 0) {
+        localtion.query = this.$route.query;
+      }
+      if (this.keyWord) {
+        localtion.params = {
+          keyWord: this.keyWord,
+        };
       }
       this.$router.push(localtion);
     },

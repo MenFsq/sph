@@ -4,8 +4,9 @@
   <div class="type-nav">
     <div class="container">
       <div @mouseleave="wrapLeave" @mouseenter="wrapEnter">
-        <h2 class="all">全部商品分类</h2>
-        <div class="sort">
+        <h2 class="all" @mouseenter="allEnter">全部商品分类</h2>
+        <transition name='item'>
+          <div class="sort" @click="toSearch" v-show="showOnelevel">
           <div class="all-sort-list2">
             <div
               class="item"
@@ -15,7 +16,12 @@
               @mouseenter="itemEnter(index)"
             >
               <h3>
-                <a href="">{{ item.categoryName }}</a>
+                <a
+                  href="javascript:;"
+                  :data-categoryName="item.categoryName"
+                  :data-categoryId1="item.categoryId"
+                  >{{ item.categoryName }}</a
+                >
               </h3>
               <div class="item-list clearfix">
                 <div class="subitem">
@@ -25,14 +31,24 @@
                     :key="childItem.categoryId"
                   >
                     <dt>
-                      <a href="">{{ childItem.categoryName }}</a>
+                      <a
+                        href="javascript:;"
+                        :data-categoryName="childItem.categoryName"
+                        :data-categoryId2="childItem.categoryId"
+                        >{{ childItem.categoryName }}</a
+                      >
                     </dt>
                     <dd>
                       <em
                         v-for="childChildItem in childItem.categoryChild"
                         :key="childChildItem.categoryId"
                       >
-                        <a href="">{{ childChildItem.categoryName }}</a>
+                        <a
+                          href="javascript:;"
+                          :data-categoryName="childChildItem.categoryName"
+                          :data-categoryId2="childChildItem.categoryId"
+                          >{{ childChildItem.categoryName }}</a
+                        >
                       </em>
                     </dd>
                   </dl>
@@ -41,6 +57,7 @@
             </div>
           </div>
         </div>
+        </transition> 
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -64,6 +81,7 @@ export default {
   data() {
     return {
       currenIndex: -2,
+      showOnelevel: ["/", "/Home"].includes(this.$route.path),
     };
   },
   computed: {
@@ -74,8 +92,16 @@ export default {
     }),
   },
   methods: {
+    allEnter() {
+      if (!["/", "/Home"].includes(this.$route.path)) {
+        this.showOnelevel = true;
+      }
+    },
     wrapLeave() {
       this.currenIndex = -2;
+      if (!["/", "/Home"].includes(this.$route.path)) {
+        this.showOnelevel = false;
+      }
     },
     wrapEnter() {
       this.currenIndex = -1;
@@ -85,6 +111,30 @@ export default {
         this.currenIndex = index;
       }
     }, 250),
+    toSearch(e) {
+      const {
+        categoryname = "",
+        categoryid1 = "",
+        categoryid2 = "",
+        categoryid3 = "",
+      } = e.target.dataset;
+      console.log(e.target.dataset);
+      let location = {
+        name: "Search",
+        query: {},
+      };
+      categoryname ? (location.query.categoryName = categoryname) : "";
+      categoryid1 ? (location.query.category1Id = categoryid1) : "";
+      categoryid2 ? (location.query.category2Id = categoryid2) : "";
+      categoryid3 ? (location.query.category3Id = categoryid3) : "";
+      console.log(location.query.categoryName);
+      console.log(location);
+      if (Object.keys(this.$route.params).length !== 0) {
+        location.params = this.$route.params;
+      }
+      this.$router.push(location);
+      this.showOnelevel = false;
+    },
   },
 };
 </script>

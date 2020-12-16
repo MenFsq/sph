@@ -22,6 +22,7 @@ module.exports = {
         "routes": resolve('src/routes'),
         "mock": resolve('src/mock'),
         "store": resolve('src/store'),
+        "common": resolve('src/common'),
       }
     }
   },
