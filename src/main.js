@@ -14,9 +14,12 @@ import 'mock/mock'
 
 Vue.config.productionTip = false
 
-// 全剧组件的注册TypeNav
+// 全局组件的注册TypeNav
 import TypeNav from 'components/TypeNav/TypeNav'
-Vue.component('TypeNav',TypeNav)
+Vue.component('TypeNav', TypeNav)
+// 轮播全局组件
+import Carousel from "components/Carousel/Carousel"
+Vue.component('Carousel', Carousel)
 // $bus注册
 Vue.prototype.$bus = new Vue();
 // 引入全局css样式

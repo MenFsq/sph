@@ -1,9 +1,10 @@
-import { getBaseCategoryList, getBanners } from 'http/http';
+import { getBaseCategoryList, getBanners ,getFloors} from 'http/http';
 const OK = 200;
 export default {
     state: {
         CategoryList: [],
-        banners:[],
+        banners: [],
+        floors:[],
     },
     getters: {},
     mutations: {
@@ -14,6 +15,10 @@ export default {
         // 轮播图数据
         getBanners(state, banners) {
             state.banners = banners
+        },
+        // 楼层数据
+        getFloors(state, floors) {
+            state.floors = floors
         },
     },
     actions: {
@@ -32,7 +37,14 @@ export default {
                 store.commit('getBanners', data)
             }
             return data;
+        },
+        // 楼层数据
+        async getFloors(store) {
+            const { code, data } = await getFloors()
+            if (code === OK) {
+                store.commit('getFloors', data)
+            }
+            return data;
         }
-
     }
 }

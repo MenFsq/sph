@@ -6,7 +6,7 @@
     <TodayRecommend></TodayRecommend>
     <Rank></Rank>
     <Like></Like>
-    <Floor></Floor>
+    <Floor v-for="floor in floors" :key="floor.id" :floor="floor"></Floor>
     <Brand></Brand>
   </div>
 </template>
@@ -18,8 +18,12 @@ import Like from "./Like/Like";
 import ListContainer from "./ListContainer/ListContainer";
 import Rank from "./Rank/Rank";
 import TodayRecommend from "./TodayRecommend/TodayRecommend";
+import {mapState} from "vuex"
 export default {
   name: "Home",
+  computed: {
+    ...mapState({floors:state=>state.home.floors})
+  },
   components: {
     Brand,
     Floor,
