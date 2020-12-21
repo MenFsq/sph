@@ -19,36 +19,36 @@
               {{ options.keyword }}
               <i @click="removeKeyword">×</i>
             </li>
+            <li class="with-x" v-if="options.trademark">
+              {{ options.trademark.split(":")[1]
+              }}<i @click="removeTrademark">×</i>
+            </li>
+            <!--过滤属性条件的显示-->
+            <li
+              class="with-x"
+              v-for="(prop, index) in options.props"
+              :key="index"
+            >
+              {{ prop.split(":")[1] }}<i @click="removeProps(index)">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector
+          @updateTrademark="updateTrademark"
+          @updateProps="updateProps"
+        />
 
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
-              <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
-                </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
-                </li>
-              </ul>
+              <OrderButton
+                :orderTypes="orderTypes"
+                :order="options.order"
+                @click="orderFn"
+              ></OrderButton>
             </div>
           </div>
           <div class="goods-list">
@@ -57,12 +57,13 @@
                 class="yui3-u-1-5"
                 v-for="goods in goodsList.goodsList"
                 :key="goods.id"
+
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="javascript:;" target="_blank"
+                    <router-link :to="`/Detail/${goods.id}`" target="_blank"
                       ><img :src="goods.defaultImg"
-                    /></a>
+                    /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -128,6 +129,9 @@ export default {
         category3Id: "",
         categoryName: "",
         keyword: "",
+        tradmark: "",
+        props: [],
+        order: "1:desc", //降序
       },
     };
   },
@@ -139,6 +143,7 @@ export default {
     "category3Id",
   ],
   computed: {
+    ...mapState(["orderTypes"]),
     ...mapState({ goodsList: (state) => state.search.goodsList }),
   },
   components: {
@@ -151,7 +156,6 @@ export default {
       this.options.pageNo = index;
       await this.getGoodsList(this.options);
     },
-
 
     async sizeChange(size) {
       this.options.pageSize = size;
@@ -170,8 +174,8 @@ export default {
     },
 
     async removeCName() {
-      this.options.categoryName='';
-       this.$router.push({
+      this.options.categoryName = "";
+      this.$router.push({
         path: this.$route.path,
         hash: `#${Date.now()}`,
       });
@@ -185,6 +189,43 @@ export default {
         hash: `#${Date.now()}`,
       });
       this.$bus.$emit("clearHInput", "");
+    },
+
+    async updateTrademark({ id, name }) {
+      if (+this.options.tradmark.split(":")[0] === id) return;
+      this.options.trademark = `${id}:${name}`;
+      await this.updateCPage(1);
+    },
+
+    async removeTrademark() {
+      this.options.trademark = "";
+      await this.updateCPage(1);
+    },
+
+    async updateProps({ id, name, val }) {
+      if (this.options.props.includes(`${id}:${val}:${name}`)) return;
+      this.options.props.push(`${id}:${val}:${name}`);
+      await this.updateCPage(1);
+    },
+
+    async removeProps(index) {
+      this.options.props.splice(index, 1);
+      await this.updateCPage(1);
+    },
+
+    async orderFn(index) {
+      //当字段没有发生切换 则切换当前字段的升降序按钮
+      //当字段发生切换 默认使用降序
+      if (this.options.order.split(":")[0] === index) {
+        //当字段没有发生切换
+        let flag = this.options.order.split(":")[1] === "asc" ? "desc" : "asc";
+        this.options.order = `${index}:${flag}`;
+      } else {
+        //当字段发生切换
+        this.options.order = `${index}:desc`;
+      }
+      //重新发请求获取数据
+      await this.updateCPage(1);
     },
   },
   watch: {

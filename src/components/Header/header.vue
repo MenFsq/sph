@@ -74,19 +74,23 @@ export default {
           keyWord: this.keyWord,
         };
       }
-      this.$router.push(localtion);
+      if (this.$route.path.toLowerCase().startsWith("/search")) {
+        this.$router.replace(localtion);
+      } else {
+        this.$router.push(localtion);
+      }
     },
   },
-  mounted () {
-    this.$bus.$on('clearHInput',(val)=>{
-      this.keyWord=val;
-    })
+  mounted() {
+    this.$bus.$on("clearHInput", (val) => {
+      this.keyWord = val;
+    });
   },
-  watch:{
-    keyWord(val){
-        this.$bus.$emit('keywordNull',val)
-    }
-  }
+  watch: {
+    keyWord(val) {
+      this.$bus.$emit("keywordNull", val);
+    },
+  },
 };
 </script>
 

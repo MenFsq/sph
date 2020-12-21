@@ -4,7 +4,9 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+          <li v-for="trademark in trademarkList" 
+          :key="trademark.tmId" 
+          @click="$emit(`updateTrademark`,{id:trademark.tmId,name:trademark.tmName})">{{trademark.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -16,7 +18,7 @@
     <div class="fl key">{{attrs.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(val,index) in attrs.attrValueList" :key="index">
+          <li v-for="(val,index) in attrs.attrValueList" :key="index" @click="$emit(`updateProps`,{id:attrs.attrId,name:attrs.attrName,val:val})">
             <a>{{val}}</a>
           </li>
         </ul>
