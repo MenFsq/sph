@@ -142,7 +142,7 @@ export default {
           }
         }
       }
-      console.log(location)
+      // console.log(location)
       this.$router.push(location);
       this.showOnelevel = false;
     },

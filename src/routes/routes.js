@@ -3,6 +3,7 @@ import Login from 'pages/Login/Login'
 import Register from 'pages/Register/Register'
 import Search from 'pages/Search/Search'
 import ShopCart from 'pages/ShopCart/ShopCart'
+import Detail from 'pages/Detail'
 const routes = [
     { path: "/Home", component: Home },
     // 访问登录页和注册页时,Footer不能显示
@@ -17,6 +18,7 @@ const routes = [
                             category3Id: route.query.category3Id
         })
     },
+    {path:'/Detail/:id',component:Detail,props:true},
     { path: "/ShopCart", component: ShopCart },
     { path: "/", redirect: '/Home' },
 ];

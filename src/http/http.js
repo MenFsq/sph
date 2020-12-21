@@ -12,3 +12,6 @@ export const getBanners = () => mockAxios.get('/banners');
 
 //获取楼层数据
 export const getFloors = () => mockAxios.get('/floors');
+
+// 获取商品的详情信息
+export const getDetail =skyId=>apiAxios.get(`/item/${skyId}`)
