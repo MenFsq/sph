@@ -41,7 +41,8 @@ export default {
 
 <style lang="less">
 .mouse-cover-canvas{
-  left:760px !important;
-  top:245px !important;
+  left:750px !important;
+  top:240px !important;
+  width:400px !important;
 }
 </style>
