@@ -77,6 +77,16 @@ export default {
       this.$router.push(localtion);
     },
   },
+  mounted () {
+    this.$bus.$on('clearHInput',(val)=>{
+      this.keyWord=val;
+    })
+  },
+  watch:{
+    keyWord(val){
+        this.$bus.$emit('keywordNull',val)
+    }
+  }
 };
 </script>
 

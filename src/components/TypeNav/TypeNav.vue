@@ -5,59 +5,59 @@
     <div class="container">
       <div @mouseleave="wrapLeave" @mouseenter="wrapEnter">
         <h2 class="all" @mouseenter="allEnter">全部商品分类</h2>
-        <transition name='item'>
+        <transition name="item">
           <div class="sort" @click="toSearch" v-show="showOnelevel">
-          <div class="all-sort-list2">
-            <div
-              class="item"
-              :class="{ showList: currenIndex === index }"
-              v-for="(item, index) in CategoryList"
-              :key="item.categoryId"
-              @mouseenter="itemEnter(index)"
-            >
-              <h3>
-                <a
-                  href="javascript:;"
-                  :data-categoryName="item.categoryName"
-                  :data-categoryId1="item.categoryId"
-                  >{{ item.categoryName }}</a
-                >
-              </h3>
-              <div class="item-list clearfix">
-                <div class="subitem">
-                  <dl
-                    class="fore"
-                    v-for="childItem in item.categoryChild"
-                    :key="childItem.categoryId"
+            <div class="all-sort-list2">
+              <div
+                class="item"
+                :class="{ showList: currenIndex === index }"
+                v-for="(item, index) in CategoryList"
+                :key="item.categoryId"
+                @mouseenter="itemEnter(index)"
+              >
+                <h3>
+                  <a
+                    href="javascript:;"
+                    :data-categoryName="item.categoryName"
+                    :data-categoryId1="item.categoryId"
+                    >{{ item.categoryName }}</a
                   >
-                    <dt>
-                      <a
-                        href="javascript:;"
-                        :data-categoryName="childItem.categoryName"
-                        :data-categoryId2="childItem.categoryId"
-                        >{{ childItem.categoryName }}</a
-                      >
-                    </dt>
-                    <dd>
-                      <em
-                        v-for="childChildItem in childItem.categoryChild"
-                        :key="childChildItem.categoryId"
-                      >
+                </h3>
+                <div class="item-list clearfix">
+                  <div class="subitem">
+                    <dl
+                      class="fore"
+                      v-for="childItem in item.categoryChild"
+                      :key="childItem.categoryId"
+                    >
+                      <dt>
                         <a
                           href="javascript:;"
-                          :data-categoryName="childChildItem.categoryName"
-                          :data-categoryId2="childChildItem.categoryId"
-                          >{{ childChildItem.categoryName }}</a
+                          :data-categoryName="childItem.categoryName"
+                          :data-categoryId2="childItem.categoryId"
+                          >{{ childItem.categoryName }}</a
                         >
-                      </em>
-                    </dd>
-                  </dl>
+                      </dt>
+                      <dd>
+                        <em
+                          v-for="childChildItem in childItem.categoryChild"
+                          :key="childChildItem.categoryId"
+                        >
+                          <a
+                            href="javascript:;"
+                            :data-categoryName="childChildItem.categoryName"
+                            :data-categoryId2="childChildItem.categoryId"
+                            >{{ childChildItem.categoryName }}</a
+                          >
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        </transition> 
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -82,6 +82,7 @@ export default {
     return {
       currenIndex: -2,
       showOnelevel: ["/", "/Home"].includes(this.$route.path),
+      keywordNull: "",
     };
   },
   computed: {
@@ -118,23 +119,38 @@ export default {
         categoryid2 = "",
         categoryid3 = "",
       } = e.target.dataset;
-      console.log(e.target.dataset);
       let location = {
         name: "Search",
         query: {},
+        hash: `#${Date.now()}`,
       };
       categoryname ? (location.query.categoryName = categoryname) : "";
       categoryid1 ? (location.query.category1Id = categoryid1) : "";
       categoryid2 ? (location.query.category2Id = categoryid2) : "";
       categoryid3 ? (location.query.category3Id = categoryid3) : "";
-      console.log(location.query.categoryName);
-      console.log(location);
+
       if (Object.keys(this.$route.params).length !== 0) {
         location.params = this.$route.params;
       }
+      if(this.keywordNull===''){
+        if(location.params&& typeof location.params==='object'){
+          let arr=Object.keys(location.params);
+          if(arr.length===1&&arr[0]==='keyWord'){
+            location.params=''
+          }else{
+            delete location.params.keyword;
+          }
+        }
+      }
+      console.log(location)
       this.$router.push(location);
       this.showOnelevel = false;
     },
+  },
+  mounted() {
+    this.$bus.$on("keywordNull", (val) => {
+      this.keywordNull = val;
+    });
   },
 };
 </script>

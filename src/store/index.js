@@ -6,6 +6,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 import home from 'store/modules/home'
+import search from 'store/modules/search'
 const store = new Vuex.Store({
     state,
     getters,
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
     actions,
     modules: {
         home,
+        search
     }
 })
 export default store;
