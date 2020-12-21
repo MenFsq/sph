@@ -4,6 +4,9 @@ import mockAxios from './mockAxios';
 // 获取三级列表的请求方法
 export const getBaseCategoryList = () => apiAxios.get('/product/getBaseCategoryList');
 
+//获取搜索商品数据
+export const getGoodsList = (options = {}) => apiAxios.post('/list', options);
+
 // 获取轮播图数据
 export const getBanners = () => mockAxios.get('/banners');
 

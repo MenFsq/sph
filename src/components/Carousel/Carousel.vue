@@ -34,9 +34,12 @@ export default {
   },
   watch: {
     list: {
-      immediate:true,
+      immediate: true,
       deep: true,
       handler() {
+        if (this.list.length == 0) {
+          return;
+        }
         this.$nextTick(() => {
           new Swiper(this.$refs.swiper, {
             loop: this.loop, // 循环模式选项
@@ -44,7 +47,7 @@ export default {
             // 如果需要分页器
             pagination: {
               el: ".swiper-pagination",
-              clickable :true,
+              clickable: true,
             },
             // 如果需要前进后退按钮
             navigation: {

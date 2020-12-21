@@ -10,7 +10,7 @@ const routes = [
     { path: "/Register", component: Register, meta: { hideFooter: true } },
     {
         path: "/Search/:keyWord?", component: Search, name: 'Search', props: (route) => ({
-            keyword: route.params.keyword,
+            keyword: route.params.keyWord,
                 categoryName: route.query.categoryName,
                     category1Id: route.query.category1Id,
                         category2Id: route.query.category2Id,

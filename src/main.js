@@ -17,9 +17,14 @@ Vue.config.productionTip = false
 // 全局组件的注册TypeNav
 import TypeNav from 'components/TypeNav/TypeNav'
 Vue.component('TypeNav', TypeNav)
+
 // 轮播全局组件
 import Carousel from "components/Carousel/Carousel"
 Vue.component('Carousel', Carousel)
+
+// 分页全局组件
+import { Pagination} from 'element-ui';
+Vue.component(Pagination.name, Pagination);
 // $bus注册
 Vue.prototype.$bus = new Vue();
 // 引入全局css样式
