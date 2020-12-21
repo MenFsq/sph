@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     chooseImg(index) {
-      console.log(this.goodDetail)
       this.currentIndex = index;
       //向zoom组件传递index
       this.$bus.$emit("sendIndexToZoom", index);
@@ -64,7 +63,7 @@ export default {
         });
       },
       deep: true,
-      immediate: true,
+      // immediate: true,
     },
   },
 };

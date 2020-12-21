@@ -18,6 +18,8 @@
     "nprogress": "^0.2.0",
     "swiper": "^6.4.1",
     "vue": "^2.6.11",
+    "vue-photo-zoom-pro": "^1.4.3",
+    "vue-piczoom": "^1.0.6",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0"
   },
