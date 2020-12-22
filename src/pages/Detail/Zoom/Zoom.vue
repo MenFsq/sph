@@ -40,9 +40,18 @@ export default {
 </script>
 
 <style lang="less">
+.magnifier-box img {
+  width:400px !important;
+  height: 400px !important;
+}
+.swiper{
+  width:400px;
+  height: 400px;;
+}
 .mouse-cover-canvas{
   left:750px !important;
   top:240px !important;
   width:400px !important;
+  border:none !important;
 }
 </style>
