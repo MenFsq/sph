@@ -46,7 +46,7 @@
                           <a
                             href="javascript:;"
                             :data-categoryName="childChildItem.categoryName"
-                            :data-categoryId2="childChildItem.categoryId"
+                            :data-categoryId3="childChildItem.categoryId"
                             >{{ childChildItem.categoryName }}</a
                           >
                         </em>

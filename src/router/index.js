@@ -12,4 +12,8 @@ VueRouter.prototype.push = function push(location) {
 export default new VueRouter({
     routes,
     mode: 'history',
+    scrollBehavior() {
+        return { x: 0, y: 0 }
+        // return 期望滚动到哪个的位置
+      }
 })

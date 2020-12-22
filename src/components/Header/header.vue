@@ -75,6 +75,7 @@ export default {
         };
       }
       if (this.$route.path.toLowerCase().startsWith("/search")) {
+        console.log(this.$route.path)
         this.$router.replace(localtion);
       } else {
         this.$router.push(localtion);

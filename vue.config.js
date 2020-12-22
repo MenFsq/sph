@@ -23,6 +23,7 @@ module.exports = {
         "mock": resolve('src/mock'),
         "store": resolve('src/store'),
         "common": resolve('src/common'),
+        "util": resolve("src/util")
       }
     }
   },

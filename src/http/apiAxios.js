@@ -1,5 +1,6 @@
 import nprogress from 'nprogress';
 import axios from 'axios';
+import store from "store"
 const axiosIns = axios.create({
     baseURL: '/api',
     timeout: 10000,
@@ -7,6 +8,8 @@ const axiosIns = axios.create({
 axiosIns.interceptors.request.use(function (config) {
     //发送请求前
     nprogress.start()
+    //为/api开头的所有请求都带上 UUID
+    config.headers.userTempId = store.state.user.uuid;
     return config;
 });
 

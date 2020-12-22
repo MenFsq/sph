@@ -61,7 +61,7 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <router-link :to="`/Detail/${goods.id}`" target="_blank"
+                    <router-link :to="`/Detail/${goods.id}`" 
                       ><img :src="goods.defaultImg"
                     /></router-link>
                   </div>
@@ -73,7 +73,6 @@
                   </div>
                   <div class="attr">
                     <a
-                      target="_blank"
                       href="javascript:;"
                       :title="goods.title"
                       >{{ goods.title }}</a
@@ -85,7 +84,6 @@
                   <div class="operate">
                     <a
                       href="success-cart.html"
-                      target="_blank"
                       class="sui-btn btn-bordered btn-danger"
                       >加入购物车</a
                     >
