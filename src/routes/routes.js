@@ -19,8 +19,8 @@ const routes = [
             category3Id: route.query.category3Id
         })
     },
-    { path: '/AddCartSuccess', component: AddCartSuccess, props: true },
-    { path: '/Detail/:id', component: Detail, props:route=>({skuNum:route.query.skuNum})},
+    { path: '/AddCartSuccess', component: AddCartSuccess, props:route=>({skuNum:route.query.skuNum})},
+    { path: '/Detail/:id', component: Detail, props:true},
     { path: "/ShopCart", component: ShopCart },
     { path: "/", redirect: '/Home' },
 ];

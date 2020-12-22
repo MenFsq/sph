@@ -5,17 +5,16 @@ export default {
         goodDetail: {},
     },
     getters: {
-        checkedAttrs(state) {
+        checkedAttrs(state){
             let attrs = []
-            state.goodDetail.spuSaleAttrList.forEach((attr) => {
-                attr.spuSaleAttrValueList.forEach((value) => {
-                    if (value.isChecked === '1') {
-                        attrs.push(value);
+            state.goodDetail.spuSaleAttrList && state.goodDetail.spuSaleAttrList.forEach((attr)=>{
+                attr.spuSaleAttrValueList.forEach((val)=>{
+                    if(val.isChecked === "1"){
+                        attrs.push(val)
                     }
                 })
             })
             return attrs
-            
         }
     },
     mutations: {

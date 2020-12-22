@@ -104,7 +104,9 @@
                 <a
                   href="javascript:"
                   class="mins"
-                  @click="skuNum > 1 && skuNum--">-</a>
+                  @click="skuNum > 1 && skuNum--"
+                  >-</a
+                >
               </div>
               <div class="add">
                 <a href="javascript:" @click="addCart">加入购物车</a>
@@ -354,7 +356,7 @@ export default {
 
   data() {
     return {
-      skuNum: 0,
+      skuNum: 1,
     };
   },
 
@@ -369,17 +371,34 @@ export default {
     ...mapGetters(["checkedAttrs"]),
   },
   methods: {
-    ...mapActions(["getDetail", "activeFn"]),
+    ...mapActions(["getDetail", "activeFn", "addSkuToCart"]),
 
     async addCart() {
-      // console.log(this.goodDetail.spuSaleAttrList );
-      console.log(this.goodDetail)
-      //  window.sessionStorage.setItem("sph_skuInfo",JSON.stringify(this.goodDetail.skuInfo))
-      //  this.$router.push(`/AddCartSuccess?skuNum=${this.skuNum}`);
+      try {
+        const code = await this.addSkuToCart({
+          skuId: this.id,
+          skuNum: this.skuNum,
+        });
+        // console.log(code)
+        if (code === 200) {
+          window.sessionStorage.setItem(
+            "sph_skuInfo",
+            JSON.stringify(this.goodDetail.skuInfo)
+          );
+          await this.$router.push(`/AddCartSuccess?skuNum=${this.skuNum}`);
+        } else {
+          alert("添加购物车失败");
+        }
+      } catch (error) {
+        alert("网络问题....");
+      }
+
+      window.sessionStorage.setItem(
+        "sph_skuInfo",
+        JSON.stringify(this.goodDetail.skuInfo)
+      );
+      await this.$router.push(`/AddCartSuccess?skuNum=${this.skuNum}`);
     },
-  },
-  mounted () {
-    console.log(this.goodDetail.skuInfo)
   },
   async created() {
     await this.getDetail(this.id);

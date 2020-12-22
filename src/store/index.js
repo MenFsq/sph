@@ -8,6 +8,8 @@ import actions from './actions'
 import home from 'store/modules/home'
 import search from 'store/modules/search'
 import detail from 'store/modules/detail'
+import cart from 'store/modules/cart'
+import user from 'store/modules/user'
 const store = new Vuex.Store({
     state,
     getters,
@@ -16,7 +18,9 @@ const store = new Vuex.Store({
     modules: {
         home,
         search,
-        detail
+        detail,
+        cart,
+        user
     }
 })
 export default store;

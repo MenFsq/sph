@@ -16,8 +16,8 @@
           </div>
         </div>
         <div class="right-gocart">
-          <a href="javascript:" class="sui-btn btn-xlarge">查看商品详情</a>
-          <a href="javascript:">去购物车结算 > </a>
+          <router-link href="javascript:" :to="`/Detail/${skuInfo.id}`" class="sui-btn btn-xlarge" >查看商品详情</router-link>
+          <router-link href="javascript:" :to="`/ShopCart`">去购物车结算 > </router-link>
         </div>
       </div>
     </div>
@@ -36,9 +36,9 @@ export default {
     }
   },
 
-  // mounted() {
-  //   this.skuInfo = JSON.parse(window.sessionStorage.getItem("sph_skuInfo"))
-  // },
+  mounted() {
+    this.skuInfo = JSON.parse(window.sessionStorage.getItem("sph_skuInfo"))
+  },
 };
 </script>
 

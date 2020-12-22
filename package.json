@@ -17,6 +17,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "swiper": "^6.4.1",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-photo-zoom-pro": "^1.4.3",
     "vue-piczoom": "^1.0.6",
