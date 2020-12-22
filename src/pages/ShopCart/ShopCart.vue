@@ -155,7 +155,7 @@ export default {
         const codeArr = await this.deleteAllCart();
         if (codeArr.every((code) => code === 200)) {
           //同步仓库
-          await this.$confirm(`确定要删除全部购物车商品吗?`);
+          await this.$confirm(`确定要删除选中商品吗?`);
           await this.getCartList();
         } else {
           alert("全选操作失败");
