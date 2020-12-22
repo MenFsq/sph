@@ -7,7 +7,7 @@ export default {
     getters: {
         checkedAttrs(state) {
             let attrs = []
-            state.goodDetail.supSaleAttrList.forEach((attr) => {
+            state.goodDetail.spuSaleAttrList.forEach((attr) => {
                 attr.spuSaleAttrValueList.forEach((value) => {
                     if (value.isChecked === '1') {
                         attrs.push(value);
@@ -15,6 +15,7 @@ export default {
                 })
             })
             return attrs
+            
         }
     },
     mutations: {
