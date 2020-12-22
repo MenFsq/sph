@@ -29,7 +29,7 @@
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail" v-if="goodDetail.skuInfo">
-            <h3 class="InfoName" >
+            <h3 class="InfoName">
               {{ goodDetail.skuInfo.skuName }}
             </h3>
             <p class="news">
@@ -99,12 +99,15 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum" />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum > 1 && skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -345,9 +348,15 @@
 <script>
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
-import { mapActions, mapState,mapGetters } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   name: "Detail",
+
+  data() {
+    return {
+      skuNum: 0,
+    };
+  },
 
   props: ["id"],
 
@@ -357,12 +366,21 @@ export default {
   },
   computed: {
     ...mapState({ goodDetail: (state) => state.detail.goodDetail }),
-    ...mapGetters(["checkedAttrs"])
+    ...mapGetters(["checkedAttrs"]),
   },
   methods: {
-    ...mapActions(["getDetail",'activeFn']),
-  },
+    ...mapActions(["getDetail", "activeFn"]),
 
+    async addCart() {
+      // console.log(this.goodDetail.spuSaleAttrList );
+      console.log(this.goodDetail)
+      //  window.sessionStorage.setItem("sph_skuInfo",JSON.stringify(this.goodDetail.skuInfo))
+      //  this.$router.push(`/AddCartSuccess?skuNum=${this.skuNum}`);
+    },
+  },
+  mounted () {
+    console.log(this.goodDetail.skuInfo)
+  },
   async created() {
     await this.getDetail(this.id);
   },
