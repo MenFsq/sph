@@ -1,10 +1,17 @@
-import Home from 'pages/Home/Home'
-import Login from 'pages/Login/Login'
-import Register from 'pages/Register/Register'
-import Search from 'pages/Search/Search'
-import ShopCart from 'pages/ShopCart/ShopCart'
-import Detail from 'pages/Detail'
-import AddCartSuccess from 'pages/AddCartSuccess'
+// import Home from 'pages/Home/Home'
+// import Login from 'pages/Login/Login'
+// import Register from 'pages/Register/Register'
+// import Search from 'pages/Search/Search'
+// import ShopCart from 'pages/ShopCart/ShopCart'
+// import Detail from 'pages/Detail'
+// import AddCartSuccess from 'pages/AddCartSuccess'
+const Home = () => import(/* webpackChunkName: "Home" */ 'pages/Home/Home')
+const Register = () => import(/* webpackChunkName: "Register" */ 'pages/Register/Register')
+const Search = () => import(/* webpackChunkName: "Search" */ 'pages/Search/Search')
+const ShopCart = () => import(/* webpackChunkName: "ShopCart" */ 'pages/ShopCart/ShopCart')
+const Detail = () => import(/* webpackChunkName: "Detail" */ 'pages/Detail')
+const AddCartSuccess = () => import(/* webpackChunkName: "AddCartSuccess" */ 'pages/AddCartSuccess')
+const Login = () => import(/* webpackChunkName: "Login" */ 'pages/Login/Login')
 const routes = [
     { path: "/Home", component: Home },
     // 访问登录页和注册页时,Footer不能显示

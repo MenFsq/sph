@@ -99,7 +99,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" v-model="skuNum" />
+                <input
+                  autocomplete="off"
+                  class="itxt"
+                  :value="skuNum"
+                  @input="updateSkuNum"
+                />
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
                 <a
                   href="javascript:"
@@ -399,6 +404,15 @@ export default {
       );
       await this.$router.push(`/AddCartSuccess?skuNum=${this.skuNum}`);
     },
+
+    updateSkuNum(ev){
+      let targetValue =ev.target.value;
+      let reg=/\D+/g;
+      targetValue = targetValue.replace(reg,"")
+      targetValue = targetValue === "" ? 1 : targetValue;
+      this.skuNum = ev.target.value = targetValue
+      
+    }
   },
   async created() {
     await this.getDetail(this.id);
