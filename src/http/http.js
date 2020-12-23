@@ -32,4 +32,4 @@ export const deleteCart = (skuId) => apiAxios.delete(`/cart/deleteCart/${skuId}`
 export const login = (phone, password) => apiAxios.post(`user/passport/login`, { phone, password })
 export const logout = () => apiAxios.get(`/user/passport/logout`)
 export const autoLogin = () => apiAxios.get(`/user/passport/auth/getUserInfo`)
-export const register = (phone, password,code) => apiAxios.post(`user/passport/register`, { phone, password ,code})
+export const register = (phone, password,userCode) => apiAxios.post(`user/passport/register`, { phone, password ,code:userCode})
