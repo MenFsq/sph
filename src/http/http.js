@@ -23,7 +23,13 @@ export const addSkuToCart = (skuId, skuNum) => apiAxios.post(`/cart/addToCart/${
 export const getCartList = () => apiAxios.get(`/cart/cartList`)
 
 //商品选中&不选中  /api/cart/checkCart/{skuID}/{isChecked}
-export const cartGoodChecked = (skuId,isChecked) => apiAxios.get(`/cart/checkCart/${skuId}/${isChecked}`);
+export const cartGoodChecked = (skuId, isChecked) => apiAxios.get(`/cart/checkCart/${skuId}/${isChecked}`);
 
 //删除单个商品  /api/cart/deleteCart/{skuId}
 export const deleteCart = (skuId) => apiAxios.delete(`/cart/deleteCart/${skuId}`);
+
+//登录注册相关接口
+export const login = (phone, password) => apiAxios.post(`user/passport/login`, { phone, password })
+export const logout = () => apiAxios.get(`/user/passport/logout`)
+export const autoLogin = () => apiAxios.get(`/user/passport/auth/getUserInfo`)
+export const register = (phone, password,code) => apiAxios.post(`user/passport/register`, { phone, password ,code})

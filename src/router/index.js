@@ -9,11 +9,12 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
    return originalPush.call(this, location).catch(err => err)
 }
-export default new VueRouter({
-    routes,
-    mode: 'history',
-    scrollBehavior() {
-        return { x: 0, y: 0 }
-        // return 期望滚动到哪个的位置
-      }
+const router=new VueRouter({
+  routes,
+  mode: 'history',
+  scrollBehavior() {
+      return { x: 0, y: 0 }
+      // return 期望滚动到哪个的位置
+    }
 })
+export default router

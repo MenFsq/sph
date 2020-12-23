@@ -1,7 +1,9 @@
-import {getUUID} from "util"
+import { getUUID } from "util"
+
 export default {
     state:{
-        uuid:getUUID()
+        uuid: getUUID(),
+        userInfo:{}//用户信息
     },
     getters:{
 
@@ -10,6 +12,6 @@ export default {
 
     },
     actions: {
-
+        
     }
 }
