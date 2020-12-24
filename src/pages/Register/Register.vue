@@ -50,7 +50,7 @@
         <label>确认密码:</label>
         <input
           type="password"
-          placeholder="请输入确认密码"
+          placeholder="请输入确认密码"  
           v-model="okPassword"
           @blur="okPasswordNumber"
         />
@@ -179,7 +179,7 @@ export default {
             });
             console.log(code)
             if (code === 200) {
-              await this.$router.push("/Login");//如果返回200就返回登录页
+              await this.$router.replace("/Login");//如果返回200就返回登录页
             }else if(code===201){
               await this.$alert("该用户已存在")
             }

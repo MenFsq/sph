@@ -98,7 +98,7 @@ export default {
         });
         // console.log(code)
         if (code === 200) {
-          this.$router.push("/Home");
+          this.$router.replace("/Home");
         } else {
           await this.$alert("您输入的账号或密码有误");
            this.userPassword='';
