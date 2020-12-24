@@ -22,6 +22,9 @@ import 'components/components'
 
 // 引入全局css样式
 import 'common/css/transition.less'
+
+//引入vee-Validate
+import 'util/vee';
 new Vue({
   render: h => h(App),
   router,
