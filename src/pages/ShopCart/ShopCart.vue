@@ -30,16 +30,27 @@
             <span class="price">{{ cartGood.skuPrice }}</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
+            <a
+              href="javascript:void(0)"
+              class="mins"
+              @click="updateCartNum(cartGood, -1)"
+              >-</a
+            >
             <input
               autocomplete="off"
               type="text"
-              value="1"
               minnum="1"
               class="itxt"
-              v-model="cartGood.skuNum"
+              :value="cartGood.skuNum"
+              @input="updateSkuNumForInput(cartGood, $event)"
+              @change="updateSkuNum(cartGood, $event)"
             />
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a
+              href="javascript:void(0)"
+              class="plus"
+              @click="updateCartNum(cartGood, 1)"
+              >+</a
+            >
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{ cartGood.skuPrice * cartGood.skuNum }}</span>
@@ -81,7 +92,7 @@
           <i class="summoney">&nbsp;{{ cart_goodsPrice }}&nbsp;</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link to="/Trade" class="sum-btn">结算</router-link>
         </div>
       </div>
     </div>
@@ -126,6 +137,7 @@ export default {
       "updateAllChecked",
       "deleteCart",
       "deleteAllCart",
+      "addSkuToCart",
     ]),
     async changeFn(skuId, isChecked) {
       isChecked = isChecked === 0 ? 1 : 0;
@@ -164,12 +176,35 @@ export default {
         alert("网络问题");
       }
     },
+    async updateCartNum(cartGood, skuNum) {
+      const goodsStarNum = cartGood.skuNum;
+      const goodsNextNum = goodsStarNum + skuNum;
+      if (goodsNextNum > 0) {
+        const code = await this.addSkuToCart({ skuId: cartGood.skuId, skuNum });
+        if (code === 200) {
+          await this.getCartList();
+        } else {
+          this.$alert("添加操作失败");
+        }
+      }
+    },
+    updateSkuNum(cartGood, ev) {
+      let cartGoodsAll =
+        ev.target.value === "" ? cartGood.skuNum : ev.target.value;
+      let skuNum = +cartGoodsAll - cartGood.skuNum;
+      this.updateCartNum(cartGood, skuNum);
+    },
+    updateSkuNumForInput(cartGood, ev) {
+      let targetVal = ev.target.value;
+      let reg = /\D+/g;
+      targetVal = targetVal.replace(reg, "");
+      ev.target.value = targetVal;
+    },
   },
 
   async created() {
     // 发送请求 获取购物车数据
-    const body = await this.getCartList();
-    console.log(body);
+    await this.getCartList();
   },
 };
 </script>

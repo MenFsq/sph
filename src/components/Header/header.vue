@@ -7,28 +7,32 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="userInfo.name">
+            <span>{{ userInfo.name }}&nbsp;&nbsp;</span>
+            <a href="javascript:;" @click="logoutFn">登出</a>
+          </p>
+          <p v-else>
             <span>请</span>
             <router-link to="/Login">登录</router-link>
             <router-link to="/Register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
+          <router-link to="/Center">我的订单</router-link>
           <router-link to="/ShopCart">我的购物车</router-link>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
-          <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
-          <a href="###">合作招商</a>
-          <a href="###">商家后台</a>
+          <a href="javascript:;">我的尚品汇</a>
+          <a href="javascript:;">尚品汇会员</a>
+          <a href="javascript:;">企业采购</a>
+          <a href="javascript:;">关注尚品汇</a>
+          <a href="javascript:;">合作招商</a>
+          <a href="javascript:;">商家后台</a>
         </div>
       </div>
     </div>
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <router-link class="logo" title="尚品汇" to="/home" target="_blank">
+        <router-link class="logo" title="尚品汇" to="/Home">
           <img src="./images/logo.png" alt="" />
         </router-link>
       </h1>
@@ -54,6 +58,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "Header",
   data() {
@@ -61,7 +66,13 @@ export default {
       keyWord: "",
     };
   },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
+    }),
+  },
   methods: {
+    ...mapActions(["logout"]),
     toSearch() {
       let localtion = {
         name: "Search",
@@ -75,11 +86,17 @@ export default {
         };
       }
       if (this.$route.path.toLowerCase().startsWith("/search")) {
-        console.log(this.$route.path)
+        console.log(this.$route.path);
         this.$router.replace(localtion);
       } else {
         this.$router.push(localtion);
       }
+    },
+    async logoutFn() {
+      //登出
+      await this.logout();
+      //回主页
+      this.$router.replace("/");
     },
   },
   mounted() {
