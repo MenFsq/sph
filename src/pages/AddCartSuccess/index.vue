@@ -5,19 +5,28 @@
       <div class="goods">
         <div class="left-good">
           <div class="left-pic">
-            <img :src="skuInfo.skuDefaultImg"/>
+            <img :src="skuInfo.skuDefaultImg" />
           </div>
           <div class="right-info">
             <p class="title">
-              {{skuInfo.skuName}}
+              {{ skuInfo.skuName }}
             </p>
-            <p class="attr">{{skuInfo.skuDesc}}</p>
-            <p>数量:<strong style="color: deeppink">{{skuNum}}</strong></p>
+            <p class="attr">{{ skuInfo.skuDesc }}</p>
+            <p>
+              数量:<strong style="color: deeppink">{{ skuNum }}</strong>
+            </p>
           </div>
         </div>
         <div class="right-gocart">
-          <router-link href="javascript:" :to="`/Detail/${skuInfo.id}`" class="sui-btn btn-xlarge" >查看商品详情</router-link>
-          <router-link href="javascript:" :to="`/ShopCart`">去购物车结算 > </router-link>
+          <router-link
+            href="javascript:"
+            :to="`/Detail/${skuInfo.id}`"
+            class="sui-btn btn-xlarge"
+            >查看商品详情</router-link
+          >
+          <router-link href="javascript:" :to="`/ShopCart`"
+            >去购物车结算 >
+          </router-link>
         </div>
       </div>
     </div>
@@ -30,14 +39,28 @@ export default {
 
   props: ["skuNum"],
 
-  data () {
+  data() {
     return {
-        skuInfo:{},
-    }
+      skuInfo: {},
+    };
   },
 
   mounted() {
-    this.skuInfo = JSON.parse(window.sessionStorage.getItem("sph_skuInfo"))
+    this.skuInfo = JSON.parse(window.sessionStorage.getItem("sph_skuInfo"));
+  },
+
+  async beforeRouteEnter(to, from, next) {
+    // 当跳转到购物车添加成功页面时;
+    //如果url中没有skuNum=1这个query,或者sessionStorage中没有sph_skuInfo这个数据
+    //就不允许直接跳转到AddCartSuccess页面 应该跳回到搜索页
+    //to:跳到哪里去.目标路由
+    let skuNum = to.query.skuNum;
+    let skuInfo = window.sessionStorage.getItem("sph_skuInfo");
+    if (skuNum && skuInfo) {
+      next();
+    }else{
+      next('/Search');
+    }
   },
 };
 </script>

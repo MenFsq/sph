@@ -16,7 +16,7 @@
           placeholder="请输入你的手机号"
           v-model="phone"
           name="phone"
-          v-validate="{ required: true, regex: /^1[3456789]\d{9}$/ }"
+          v-validate="{ required: true, regex: /^[1][3-9][0-9]{9}$/ }"
         />
         <span class="error-msg">{{ errors.first("phone") }}</span>
       </div>
@@ -36,7 +36,7 @@
         <label>登录密码:</label>
         <input type="password" placeholder="请输入你的登录密码" v-model="password"
                name="password"
-               v-validate="{required: true,regex: /^\d{6,12}$/}">
+               v-validate="{required: true,regex: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}/}">
         <span class="error-msg">{{ errors.first('password') }}</span>
       </div>
       <div class="content">
@@ -48,11 +48,11 @@
       </div>
       <div class="controls">
         <input type="checkbox"
-               name="checked22"
+               name="checkedone"
                v-model="checked"
                v-validate="{agree:true}">
         <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg">{{ errors.first('checked22')}}</span>
+        <span class="error-msg">{{ errors.first('checkedone')}}</span>
       </div>
       <div class="btn">
         <button type="button" @click="registerFn">完成注册</button>
@@ -102,16 +102,16 @@ export default {
     // 注册流程
     async registerFn() {
       //所有的注册输入框合法才可以进行注册操作
-      const success=await this.$valideor.validateAll();
+      const success=await this.$validator.validateAll();
       if(!success) return;
 
       //注册逻辑
-      const {phone,ppassword,code:userCode} =this
+      const {phone,password,code:userCode} =this
       // 发送注册Actions请求
-    const {code,data}=await this.register({phone,ppassword,code:userCode})
+    const {code,data}=await this.register({phone,password,code:userCode})
     if(code===200){
       //注册成功,给提醒
-      await this.$alert('注册成功,3s后将跳转至登录页面....');
+      await this.$alert('注册成功,点击确定后将跳转至登录页面....');
       // 跳转至登录页
       this.$router.replace('/Login')
     }else{

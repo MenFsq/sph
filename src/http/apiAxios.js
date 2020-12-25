@@ -10,6 +10,11 @@ axiosIns.interceptors.request.use(function (config) {
     nprogress.start()
     //为/api开头的所有请求都带上 UUID
     config.headers.userTempId = store.state.user.uuid;
+     //为/api开头的所有请求都带上 token
+     const token = localStorage.getItem("sph_token");
+     if(token){
+         config.headers.token = token;
+     }
     return config;
 });
 

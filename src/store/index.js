@@ -5,22 +5,13 @@ import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
-import home from 'store/modules/home'
-import search from 'store/modules/search'
-import detail from 'store/modules/detail'
-import cart from 'store/modules/cart'
-import user from 'store/modules/user'
+import modules from './modules'
+
 const store = new Vuex.Store({
     state,
     getters,
     mutations,
     actions,
-    modules: {
-        home,
-        search,
-        detail,
-        cart,
-        user
-    }
+    modules,
 })
 export default store;
