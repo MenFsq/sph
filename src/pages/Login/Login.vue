@@ -14,13 +14,21 @@
           </ul>
 
           <div class="content">
+<<<<<<< HEAD
             <form @click.prevent>
+=======
+            <form >
+>>>>>>> fsq
               <div class="input-text clearFix">
                 <span></span>
                 <input
                   type="text"
                   placeholder="邮箱/用户名/手机号"
+<<<<<<< HEAD
                   v-model="userPhone"
+=======
+                  v-model="phone"
+>>>>>>> fsq
                 />
               </div>
               <div class="input-text clearFix">
@@ -28,7 +36,11 @@
                 <input
                   type="password"
                   placeholder="请输入密码"
+<<<<<<< HEAD
                   v-model="userPassword"
+=======
+                  v-model="password"
+>>>>>>> fsq
                 />
               </div>
               <div class="setting clearFix">
@@ -38,7 +50,11 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
+<<<<<<< HEAD
               <button class="btn" @click="userLogin">登&nbsp;&nbsp;录</button>
+=======
+              <button type="button" class="btn" @click="loginFn">登&nbsp;&nbsp;录</button>
+>>>>>>> fsq
             </form>
 
             <div class="call clearFix">
@@ -75,6 +91,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { mapActions } from "vuex";
 export default {
   name: "Login",
@@ -105,6 +122,35 @@ export default {
         }
       } catch (error) {
         this.$alert("网络异常");
+=======
+// 引入Actions
+import { mapActions } from "vuex";
+export default {
+  name: "Login",
+  data() {
+    return {
+      phone: "",
+      password: "",
+    };
+  },
+  methods: {
+    // 引入mapActions
+    ...mapActions(["login"]),
+    async loginFn() {
+      const { phone, password } = this;
+      const { code, message } = await this.login({ phone, password });
+      if (code === 200) {
+        //成功
+        this.$message("登录成功");
+        this.$router.replace("/");
+      } else {
+        //登录失败
+        //给个提示
+        this.$message({
+          message,
+          type: "error",
+        });
+>>>>>>> fsq
       }
     },
   },
@@ -133,6 +179,7 @@ export default {
       top: 45px;
       position: relative;
       padding: 20px;
+<<<<<<< HEAD
 
       .tab {
         li {
@@ -153,6 +200,28 @@ export default {
             text-decoration: none;
           }
 
+=======
+
+      .tab {
+        li {
+          width: 50%;
+          float: left;
+          text-align: center;
+
+          a {
+            width: 100%;
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            text-decoration: none;
+          }
+
+>>>>>>> fsq
           .current {
             border-bottom: none;
             border-top-color: #28a3ef;
@@ -168,6 +237,7 @@ export default {
         border: 1px solid #ddd;
         border-top: none;
         padding: 18px;
+<<<<<<< HEAD
 
         form {
           margin: 15px 0 18px 0;
@@ -191,6 +261,31 @@ export default {
               background-position: -72px -201px;
             }
 
+=======
+
+        form {
+          margin: 15px 0 18px 0;
+          font-size: 12px;
+          line-height: 18px;
+
+          .input-text {
+            margin-bottom: 16px;
+
+            span {
+              float: left;
+              width: 37px;
+              height: 32px;
+              border: 1px solid #ccc;
+              background: url(./images/icons.png) no-repeat -10px -201px;
+              box-sizing: border-box;
+              border-radius: 2px 0 0 2px;
+            }
+
+            .pwd {
+              background-position: -72px -201px;
+            }
+
+>>>>>>> fsq
             input {
               width: 302px;
               height: 32px;
@@ -238,10 +333,17 @@ export default {
 
         .call {
           margin-top: 30px;
+<<<<<<< HEAD
 
           ul {
             float: left;
 
+=======
+
+          ul {
+            float: left;
+
+>>>>>>> fsq
             li {
               float: left;
               margin-right: 5px;

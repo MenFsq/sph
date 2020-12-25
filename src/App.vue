@@ -18,7 +18,13 @@ export default {
     await this.getFloors();
   },
   methods: {
-    ...mapActions(["getCategoryList", "getBanners", "getFloors"]),
+    ...mapActions([
+      "getCategoryList",
+      "getBanners",
+      "getFloors",
+      "autoLogin",
+      "logout",
+    ]),
   },
   components: {
     "V-Header": Header,

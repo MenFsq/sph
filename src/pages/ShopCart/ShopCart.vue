@@ -92,7 +92,7 @@
           <i class="summoney">&nbsp;{{ cart_goodsPrice }}&nbsp;</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link to="/Trade" class="sum-btn">结算</router-link>
         </div>
       </div>
     </div>
@@ -189,7 +189,8 @@ export default {
       }
     },
     updateSkuNum(cartGood, ev) {
-      let cartGoodsAll = ev.target.value===''?cartGood.skuNum:ev.target.value;
+      let cartGoodsAll =
+        ev.target.value === "" ? cartGood.skuNum : ev.target.value;
       let skuNum = +cartGoodsAll - cartGood.skuNum;
       this.updateCartNum(cartGood, skuNum);
     },
@@ -203,8 +204,7 @@ export default {
 
   async created() {
     // 发送请求 获取购物车数据
-    const body = await this.getCartList();
-    console.log(body);
+    await this.getCartList();
   },
 };
 </script>
