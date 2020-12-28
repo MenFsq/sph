@@ -52,7 +52,6 @@ export const getPayInfo = orderId => apiAxios.get(`/payment/weixin/createNative/
 export const getPayState = orderId => apiAxios.get(`/payment/weixin/queryPayStatus/${orderId}`);
 
 //提交订单接口
-export const submitOrder = (tradeNo,order) => apiAxios.post(`/order/auth/submitOrder`,{
-    data:order,
+export const submitOrder = (tradeNo,order) => apiAxios.post(`/order/auth/submitOrder`,order,{
     params:{tradeNo}
 });
