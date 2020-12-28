@@ -43,18 +43,18 @@ export default {
         },
 
         //获取订单支付信息(二维码)接口
-        async getPayInfo({commit}) {
-            const {code, data} = await getPayInfo();
+        async getPayInfo({commit},orderId) {
+            const {code, data} = await getPayInfo(orderId);
             if (code === OK)
                 commit("getPayInfo", data);
 
             return data
         },
         //查询订单支付状态是否成功
-        async getPayState() {
-            const {code,data} = await getPayState();
+        async getPayState(store,orderId) {
+            const { code } = await getPayState(orderId);
             if (code === OK)
-            return {code,data}
+            return code
         },
         //提交订单接口
         async submitOrder(store, { tradeNo,order}) {

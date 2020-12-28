@@ -10,7 +10,8 @@
       >
         <span
           class="username"
-          :class="{ selected: userAddress.isDefault === `1` }"
+          @click="changeAddress(userAddress.id)"
+          :class="{selected:userAddress===addressInfo}"
           >{{ userAddress.consignee }}</span
         >
         <p>
@@ -104,7 +105,7 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/Pay">提交订单</router-link>
+      <a class="subBtn" @click="submitOrderFn">提交订单</a>
     </div>
   </div>
 </template>
@@ -114,14 +115,67 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "Trade",
 
+  data() {
+    return {
+      addressInfo: {},
+      orderComment: "",
+    };
+  },
+
   computed: {
     ...mapState({ tradeInfo: (state) => state.order.tradeInfo }),
   },
 
   methods: {
-    ...mapActions(["getTradeInfo"]),
+    ...mapActions(["getTradeInfo", "submitOrder"]),
+
+    //提交订单对应的方法
+    async submitOrderFn() {
+      try {
+        const { code ,data} = await this.submitOrder({
+          tradeNo: this.tradeInfo.tradeNo,
+          order: {
+            consignee: this.addressInfo.consignee,
+            consigneeTel: this.addressInfo.consigneeTel,
+            deliveryAddress: this.addressInfo.deliveryAddress,
+            paymentWay: "ONLINE",
+            orderComment: this.orderComment,
+            orderDetailList: this.tradeInfo.detailArrayList,
+          },
+        });
+
+        if (code === 200) {
+          //跳转到支付页
+          this.$router.replace(`/Pay?orderid=${data}`);
+        } else {
+          //给个失败的提示
+          this.$message("提交失败");
+          //回到购物车界面
+          this.$router.replace("/ShopCart");
+        }
+      } catch (error) {
+        this.$alert("网络错误");
+      }
+    },
+    //改变选中地址
+    changeAddress(id) {
+      this.addressInfo = this.$store.state.order.tradeInfo.userAddressList.find(
+        (item) => item.id === id
+      );
+    },
   },
 
+  watch: {
+    "$store.state.order.tradeInfo": {
+      //val : $store.state.order.tradeInfo变化之后的值
+      handler(val) {
+        this.addressInfo = val.userAddressList.find(
+          (item) => item.isDefault === `1`
+        );
+      },
+      deep: true,
+    },
+  },
   async created() {
     await this.getTradeInfo();
   },

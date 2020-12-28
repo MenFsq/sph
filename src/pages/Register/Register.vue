@@ -184,6 +184,23 @@ export default {
       img {
         vertical-align: sub;
       }
+    }
+
+    div:nth-of-type(1) {
+      margin-top: 40px;
+    }
+
+    .content {
+      padding-left: 390px;
+      margin-bottom: 18px;
+      position: relative;
+
+      label {
+        font-size: 14px;
+        width: 96px;
+        text-align: right;
+        display: inline-block;
+      }
 
       .error-msg {
         position: absolute;
@@ -200,6 +217,7 @@ export default {
       input {
         vertical-align: middle;
       }
+    }
 
       .error-msg {
         position: absolute;
@@ -241,5 +259,5 @@ export default {
       }
     }
   }
-}
+
 </style>
