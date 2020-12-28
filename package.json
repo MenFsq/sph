@@ -16,6 +16,7 @@
     "lodash": "^4.17.20",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
+    "qrcode": "^1.4.4",
     "swiper": "^6.4.1",
     "uuid": "^8.3.2",
     "vee-validate": "^2.2.15",

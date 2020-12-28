@@ -132,7 +132,7 @@ export default {
     //提交订单对应的方法
     async submitOrderFn() {
       try {
-        const { code } = await this.submitOrder({
+        const { code ,data} = await this.submitOrder({
           tradeNo: this.tradeInfo.tradeNo,
           order: {
             consignee: this.addressInfo.consignee,
@@ -146,7 +146,7 @@ export default {
 
         if (code === 200) {
           //跳转到支付页
-          this.$router.replace("/Pay");
+          this.$router.replace(`/Pay?orderid=${data}`);
         } else {
           //给个失败的提示
           this.$message("提交失败");
